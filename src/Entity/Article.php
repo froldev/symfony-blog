@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
+use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
+
+use App\Repository\ArticleRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -19,16 +22,22 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le titre est requis")
+     * @Assert\Length(main=5, max=255)
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="La description est requise")
+     * @Assert\Length(main=10)
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="L'image'est requise")
+     * @Assert\Url()
      */
     private $image;
 
